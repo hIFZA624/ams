@@ -1,0 +1,13 @@
+<h1>Show Sub category</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @sub_category.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.sub_category_path(@conn, :edit, @sub_category) %></span>
+<span><%= link "Back", to: Routes.sub_category_path(@conn, :index) %></span>

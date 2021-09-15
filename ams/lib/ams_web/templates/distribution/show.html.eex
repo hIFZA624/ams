@@ -1,0 +1,18 @@
+<h1>Show Distribution</h1>
+
+<ul>
+
+  <li>
+    <strong>Amount:</strong>
+    <%= @distribution.amount %>
+  </li>
+
+  <li>
+    <strong>Given on:</strong>
+    <%= @distribution.given_on %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.distribution_path(@conn, :edit, @distribution) %></span>
+<span><%= link "Back", to: Routes.distribution_path(@conn, :index) %></span>

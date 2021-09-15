@@ -1,0 +1,63 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :month %>
+  <%= date_select f, :month %>
+  <%= error_tag f, :month %>
+
+  <%= label f, :short_leaves %>
+  <%= number_input f, :short_leaves %>
+  <%= error_tag f, :short_leaves %>
+
+  <%= label f, :half_leaves %>
+  <%= number_input f, :half_leaves %>
+  <%= error_tag f, :half_leaves %>
+
+  <%= label f, :full_leaves %>
+  <%= text_input f, :full_leaves %>
+  <%= error_tag f, :full_leaves %>
+
+  <%= label f, :over_time %>
+  <%= number_input f, :over_time, step: "any" %>
+  <%= error_tag f, :over_time %>
+
+  <%= label f, :deductions %>
+  <%= number_input f, :deductions, step: "any" %>
+  <%= error_tag f, :deductions %>
+
+  <%= label f, :advance %>
+  <%= number_input f, :advance, step: "any" %>
+  <%= error_tag f, :advance %>
+
+  <%= label f, :current_salary %>
+  <%= number_input f, :current_salary, step: "any" %>
+  <%= error_tag f, :current_salary %>
+
+  <%= label f, :calculated_salary %>
+  <%= number_input f, :calculated_salary, step: "any" %>
+  <%= error_tag f, :calculated_salary %>
+
+  <%= label f, :notes %>
+  <%= textarea f, :notes %>
+  <%= error_tag f, :notes %>
+
+  <%= label f, :paid_on %>
+  <%= datetime_select f, :paid_on %>
+  <%= error_tag f, :paid_on %>
+
+  <%= label f, :paid_via %>
+  <%= text_input f, :paid_via %>
+  <%= error_tag f, :paid_via %>
+
+  <%= label f, :paid_to %>
+  <%= text_input f, :paid_to %>
+  <%= error_tag f, :paid_to %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<h1>Show Spending</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @spending.title %>
+  </li>
+
+  <li>
+    <strong>Amount:</strong>
+    <%= @spending.amount %>
+  </li>
+
+  <li>
+    <strong>Spent on:</strong>
+    <%= @spending.spent_on %>
+  </li>
+
+  <li>
+    <strong>Notes:</strong>
+    <%= @spending.notes %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.spending_path(@conn, :edit, @spending) %></span>
+<span><%= link "Back", to: Routes.spending_path(@conn, :index) %></span>

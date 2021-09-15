@@ -1,0 +1,36 @@
+<h1>Listing Incomings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount usd</th>
+      <th>Amount pkr</th>
+      <th>Inovice</th>
+      <th>Medium</th>
+      <th>Recieved on</th>
+      <th>Withdrawl on</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for incoming <- @incomings do %>
+    <tr>
+      <td><%= incoming.amount_usd %></td>
+      <td><%= incoming.amount_pkr %></td>
+      <td><%= incoming.inovice %></td>
+      <td><%= incoming.medium %></td>
+      <td><%= incoming.recieved_on %></td>
+      <td><%= incoming.withdrawl_on %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.incoming_path(@conn, :show, incoming) %></span>
+        <span><%= link "Edit", to: Routes.incoming_path(@conn, :edit, incoming) %></span>
+        <span><%= link "Delete", to: Routes.incoming_path(@conn, :delete, incoming), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Incoming", to: Routes.incoming_path(@conn, :new) %></span>

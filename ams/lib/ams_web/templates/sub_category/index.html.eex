@@ -1,0 +1,25 @@
+<h1>Listing Subcategories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for sub_category <- @subcategories do %>
+    <tr>
+      <td><%= sub_category.name %></td>
+      <td>
+        <span><%= link "Show", to: Routes.sub_category_path(@conn, :show, sub_category) %></span>
+        <span><%= link "Edit", to: Routes.sub_category_path(@conn, :edit, sub_category) %></span>
+        <span><%= link "Delete", to: Routes.sub_category_path(@conn, :delete, sub_category), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Sub category", to: Routes.sub_category_path(@conn, :new) %></span>

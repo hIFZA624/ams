@@ -1,0 +1,5 @@
+<h1>Edit Incoming</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.incoming_path(@conn, :update, @incoming)) %>
+
+<span><%= link "Back", to: Routes.incoming_path(@conn, :index) %></span>

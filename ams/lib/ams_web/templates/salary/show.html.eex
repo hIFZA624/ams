@@ -1,0 +1,73 @@
+<h1>Show Salary</h1>
+
+<ul>
+
+  <li>
+    <strong>Month:</strong>
+    <%= @salary.month %>
+  </li>
+
+  <li>
+    <strong>Short leaves:</strong>
+    <%= @salary.short_leaves %>
+  </li>
+
+  <li>
+    <strong>Half leaves:</strong>
+    <%= @salary.half_leaves %>
+  </li>
+
+  <li>
+    <strong>Full leaves:</strong>
+    <%= @salary.full_leaves %>
+  </li>
+
+  <li>
+    <strong>Over time:</strong>
+    <%= @salary.over_time %>
+  </li>
+
+  <li>
+    <strong>Deductions:</strong>
+    <%= @salary.deductions %>
+  </li>
+
+  <li>
+    <strong>Advance:</strong>
+    <%= @salary.advance %>
+  </li>
+
+  <li>
+    <strong>Current salary:</strong>
+    <%= @salary.current_salary %>
+  </li>
+
+  <li>
+    <strong>Calculated salary:</strong>
+    <%= @salary.calculated_salary %>
+  </li>
+
+  <li>
+    <strong>Notes:</strong>
+    <%= @salary.notes %>
+  </li>
+
+  <li>
+    <strong>Paid on:</strong>
+    <%= @salary.paid_on %>
+  </li>
+
+  <li>
+    <strong>Paid via:</strong>
+    <%= @salary.paid_via %>
+  </li>
+
+  <li>
+    <strong>Paid to:</strong>
+    <%= @salary.paid_to %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.salary_path(@conn, :edit, @salary) %></span>
+<span><%= link "Back", to: Routes.salary_path(@conn, :index) %></span>

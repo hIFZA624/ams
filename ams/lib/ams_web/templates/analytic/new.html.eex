@@ -1,0 +1,94 @@
+<div class="container-fluid" style="margin-top:50px;">
+    <div class="row">
+        <div class="col-sm-12">
+<h1 style="margin-bottom: 20px;">Analytics Page</h1>
+<%= form_for :filter,Routes.analytic_path(@conn, :create), fn f -> %>
+<%= label f, :user %>
+<%= select(f, :roles, Enum.map(@users,&{&1.name,&1.id}),prompt: "Select User", required: true) %>
+<%= label f, :to  %>
+<%= date_input f, :date_to%>
+<%= label f, :from %>
+<%= date_input f, :date_from%>
+    <%= submit "Filter" %>
+<% end %>
+<%= if @flag  do %>
+<h3 >Receiving</h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Receiver_Name</th>
+        <th>Amount_Pkr</th>
+        <th>Amount_Usd</th>
+        <th>Received_from</th>
+        <th>Received_on</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= for dat <- @data do %>
+    <tr>
+        <td><%= dat.reciever.name %></td>
+        <td><%= dat.amount_pkr %></td>
+        <td><%= dat.amount_usd %></td>
+        <td><%= dat.client.name %></td>
+        <td><%= dat.recieved_on %></td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
+            <h4><b>Total amount_pkr:</b> <%= @acc_recieving %> , <b>Total amount_usd: </b> <%= @acc_recievings %></h4>
+  <!--Distribution -->
+            <h3 >Distribution</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Distributed_by</th>
+                    <th>Amount_Pkr</th>
+                    <th>Amount_Usd</th>
+                    <th>Distributed_to</th>
+                    <th>Distributed_on</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%= for dat <- @data_distribution do %>
+                <tr>
+                    <td><%= dat.distributed_by.name %></td>
+                    <td><%= dat.amount_pkr %></td>
+                    <td><%= dat.amount_usd %></td>
+                    <td><%= dat.distributed_to.name %></td>
+                    <td><%= dat.given_on %></td>
+                </tr>
+                <% end %>
+                </tbody>
+            </table>
+            <h4><b>Total amount_pkr: </b> <%= @acc_distribution %> , <b> Total amount_usd:</b> <%= @disc %></h4>
+            <!-- End Distribution  -->
+<!-- Start Expenses -->
+            <h3 >Spending</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Spent_by</th>
+                    <th>Amount_spent</th>
+                    <th>Spent_to</th>
+                    <th>Category</th>
+                    <th>Spent_on</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%= for dat <- @data_spending do %>
+                <tr>
+                    <td><%= dat.spent_by.name %></td>
+                    <td><%= dat.amount %></td>
+                    <td><%= dat.title %></td>
+                    <td><%= dat.category_id.name %></td>
+                    <td><%= dat.spent_on %></td>
+                </tr>
+                <% end %>
+                </tbody>
+            </table>
+            <h4><b>Total amount:</b> <%= @acc_spending %></h4>
+            <!-- eND EXPENSES -->
+<% end %>
+</div>
+</div>
+</div>

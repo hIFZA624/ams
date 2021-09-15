@@ -1,0 +1,38 @@
+<h1>Show Incoming</h1>
+
+<ul>
+
+  <li>
+    <strong>Amount usd:</strong>
+    <%= @incoming.amount_usd %>
+  </li>
+
+  <li>
+    <strong>Amount pkr:</strong>
+    <%= @incoming.amount_pkr %>
+  </li>
+
+  <li>
+    <strong>Inovice:</strong>
+    <%= @incoming.inovice %>
+  </li>
+
+  <li>
+    <strong>Medium:</strong>
+    <%= @incoming.medium %>
+  </li>
+
+  <li>
+    <strong>Recieved on:</strong>
+    <%= @incoming.recieved_on %>
+  </li>
+
+  <li>
+    <strong>Withdrawl on:</strong>
+    <%= @incoming.withdrawl_on %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.incoming_path(@conn, :edit, @incoming) %></span>
+<span><%= link "Back", to: Routes.incoming_path(@conn, :index) %></span>

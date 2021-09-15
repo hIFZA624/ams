@@ -1,0 +1,49 @@
+<h1>Listing Salaries</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th>Short leaves</th>
+      <th>Half leaves</th>
+      <th>Full leaves</th>
+      <th>Over time</th>
+      <th>Deductions</th>
+      <th>Advance</th>
+      <th>Current salary</th>
+      <th>Calculated salary</th>
+      <th>Notes</th>
+      <th>Paid on</th>
+      <th>Paid via</th>
+      <th>Paid to</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for salary <- @salaries do %>
+    <tr>
+      <td><%= salary.month %></td>
+      <td><%= salary.short_leaves %></td>
+      <td><%= salary.half_leaves %></td>
+      <td><%= salary.full_leaves %></td>
+      <td><%= salary.over_time %></td>
+      <td><%= salary.deductions %></td>
+      <td><%= salary.advance %></td>
+      <td><%= salary.current_salary %></td>
+      <td><%= salary.calculated_salary %></td>
+      <td><%= salary.notes %></td>
+      <td><%= salary.paid_on %></td>
+      <td><%= salary.paid_via %></td>
+      <td><%= salary.paid_to %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.salary_path(@conn, :show, salary) %></span>
+        <span><%= link "Edit", to: Routes.salary_path(@conn, :edit, salary) %></span>
+        <span><%= link "Delete", to: Routes.salary_path(@conn, :delete, salary), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Salary", to: Routes.salary_path(@conn, :new) %></span>

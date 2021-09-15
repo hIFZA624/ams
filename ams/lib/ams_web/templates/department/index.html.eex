@@ -1,0 +1,26 @@
+<h1>Listing Departments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for department <- @departments do %>
+    <tr>
+      <td><%= department.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.department_path(@conn, :show, department) %></span>
+        <span><%= link "Edit", to: Routes.department_path(@conn, :edit, department) %></span>
+        <span><%= link "Delete", to: Routes.department_path(@conn, :delete, department), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Department", to: Routes.department_path(@conn, :new) %></span>

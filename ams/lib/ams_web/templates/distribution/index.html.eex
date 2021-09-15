@@ -1,0 +1,28 @@
+<h1>Listing Distributions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Given on</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for distribution <- @distributions do %>
+    <tr>
+      <td><%= distribution.amount %></td>
+      <td><%= distribution.given_on %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.distribution_path(@conn, :show, distribution) %></span>
+        <span><%= link "Edit", to: Routes.distribution_path(@conn, :edit, distribution) %></span>
+        <span><%= link "Delete", to: Routes.distribution_path(@conn, :delete, distribution), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Distribution", to: Routes.distribution_path(@conn, :new) %></span>

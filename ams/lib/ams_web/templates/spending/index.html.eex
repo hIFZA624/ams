@@ -1,0 +1,31 @@
+<h1>Listing Spendings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Amount</th>
+      <th>Spent on</th>
+      <th>Notes</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for spending <- @spendings do %>
+    <tr>
+      <td><%= spending.title %></td>
+      <td><%= spending.amount %></td>
+      <td><%= spending.spent_on %></td>
+      <td><%= spending.notes %></td>
+      <td>
+        <span><%= link "Show", to: Routes.spending_path(@conn, :show, spending) %></span>
+        <span><%= link "Edit", to: Routes.spending_path(@conn, :edit, spending) %></span>
+        <span><%= link "Delete", to: Routes.spending_path(@conn, :delete, spending), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Spending", to: Routes.spending_path(@conn, :new) %></span>
