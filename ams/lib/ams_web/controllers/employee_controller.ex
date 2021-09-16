@@ -7,6 +7,8 @@ defmodule AmsWeb.EmployeeController do
   #starting action of controller
   def index(conn, _params) do
     employees = Payroll.list_employees()
+    IO.inspect("list of employess with preload<77777")
+    IO.inspect(employees)
     render(conn, "index.html", employees: employees)
   end
 #new form for create employee

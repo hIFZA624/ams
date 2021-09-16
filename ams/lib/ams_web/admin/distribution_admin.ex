@@ -100,8 +100,8 @@ defmodule Ams.Income.DistributionAdmin do
       amount_pkr: %{value: fn p -> Format.format_pkr(p.amount_pkr) end },
       amount_usd: %{value: fn p -> Format.format_usd(p.amount_usd) end },
       given_on: %{name: "Date"},
-      distributed_to: %{name: "Given To",value: fn p -> p.distributed_to.name end },
-      distributed_by: %{name: "Given By",value: fn p -> p.distributed_by.name end },
+      to: %{name: "Given To",value: fn p -> p.distributed_to.name end ,filters: Enum.map(Accounts.list_users(),fn d->{d.name,d.id} end)},
+    from: %{name: "Given By",value: fn p -> p.distributed_by.name end ,filters: Enum.map(Accounts.list_users(),fn d->{d.name,d.id} end)},
     ]
   end
 end

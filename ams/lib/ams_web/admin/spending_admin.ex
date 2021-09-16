@@ -1,13 +1,14 @@
 defmodule Ams.Expense.SpendingAdmin do
   alias Ams.Expense
   alias AmsWeb.Format
+  alias Ams.Accounts
   import Ecto.Query
 
   def ordering(_schema) do
     [desc: :spent_on]
   end
   def custom_index_query(_conn, _schema, query) do
-    from(r in query, preload: [:paid_by,[category: :category]])
+    from(r in query, preload: [:paid_by,:category])
   end
 
   def index(_) do
@@ -18,12 +19,14 @@ defmodule Ams.Expense.SpendingAdmin do
       title: nil,
       amount: %{value: fn p -> Format.format_pkr(p.amount) end },
       notes: nil,
-      paid_by: %{
+      spent_by: %{
         name: "Paid By",
-            value: fn p -> p.paid_by.name end },
+            value: fn p -> p.paid_by.name end ,
+        filters: Enum.map(Accounts.list_users(),fn c->{c.name,c.id} end)},
       category_id: %{
         name: "Category",
-        value: fn p -> p.category.category.name<>"/"<>p.category.name end
+        value: fn p -> p.category.name end,
+        filters: Enum.map(Expense.list_subcategories() ,fn c->{c.name,c.id} end)
       },
     ]
   end

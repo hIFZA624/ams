@@ -322,14 +322,42 @@ alias Ams.Expense.Spending
       where: u.id == ^id
     )|> Repo.all
   end
-  def analyze_spending(id,to \\ "",from \\ "") do
-    IO.inspect("I am in analyze distribution block")
-    {:ok,date_to}=Date.from_iso8601(to)
-    {:ok,date_from}=Date.from_iso8601(from)
+
+  def analyze_spending(id,tos \\ "",froms \\ "") do
 
     query = from u in Spending,
-                 where: u.spent_by== ^id and (fragment("date(?)", u.inserted_at) >= ^date_to and fragment("?::date", u.inserted_at) <= ^date_from),
+                 where: u.spent_by== ^id,
+                        where: ^filter_status(tos,froms),
                  select: u
     Repo.all(query) |> Repo.preload([:paid_by,:category])
+
+
+
   end
+  def filter_status(tos,froms) do
+    date=""
+    to= case Date.from_iso8601(tos) do
+      {:ok, dates} ->
+        dates
+      {:error, :invalid_format} ->
+        date
+    end
+    from= case Date.from_iso8601(froms) do
+      {:ok, dates} ->
+        dates
+      {:error, :invalid_format} ->
+        date
+    end
+    cond do
+      to != "" and from != "" ->
+        dynamic([u], (fragment("date(?)", u.inserted_at) >= ^to and fragment("?::date", u.inserted_at) <= ^from))
+      to == "" and from == "" ->
+        true
+      to != "" and from == "" ->
+        dynamic([u], fragment("date(?)", u.inserted_at) >= ^to)
+      to == "" and from != "" ->
+        dynamic([u], fragment("?::date", u.inserted_at) <= ^from)
+    end
+  end
+
 end

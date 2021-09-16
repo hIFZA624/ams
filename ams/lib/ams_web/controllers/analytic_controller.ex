@@ -10,13 +10,13 @@ defmodule AmsWeb.AnalyticController do
   def new(conn, params) do
     users = Accounts.list_users()
     flag=false
+
     render(conn, "new.html",users: users,flag: flag)
   end
 
   def create(conn, params) do
     IO.inspect("######## create app #######")
     filter_params=params["filter"]
-
     IO.inspect(params)
     user=Accounts.get_user!(filter_params["roles"])
     IO.inspect(user)
@@ -36,10 +36,12 @@ defmodule AmsWeb.AnalyticController do
     IO.inspect(data)
     IO.inspect("Data received from distribution")
     IO.inspect(data_distribution)
+
     #spending filter
     data_spending=Expense.analyze_spending(filter_params["roles"],filter_params["date_to"],filter_params["date_from"])
     {list,acc_spending}= Enum.map_reduce(data_spending, 0, fn x, acc -> {x, x.amount + acc} end)
-    IO.inspect(acc_spending)
+    IO.inspect("iN SEPNDING")
+    IO.inspect(data_spending)
     flag=true
     users = Accounts.list_users()
     render(conn, "new.html",data: data,flag: flag,users: users,data_distribution: data_distribution,data_spending: data_spending,acc_recieving: acc_recieving,acc_recievings: acc_recievings,acc_distribution: acc_distribution,disc: disc,acc_spending: acc_spending)

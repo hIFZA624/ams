@@ -11,6 +11,10 @@
 <%= date_input f, :date_from%>
     <%= submit "Filter" %>
 <% end %>
+            <%= if !@flag  do %>
+            <h1 style="margin-top: 150px; text-align: center">Welcome to the Filters Page</h1>
+                <h2 style=" text-align: center">Apply filters  here</h2>
+            <% end %>
 <%= if @flag  do %>
 <h3 >Receiving</h3>
 <table class="table table-striped">
@@ -77,10 +81,10 @@
                 <tbody>
                 <%= for dat <- @data_spending do %>
                 <tr>
-                    <td><%= dat.spent_by.name %></td>
+                    <td><%= dat.paid_by.name %></td>
                     <td><%= dat.amount %></td>
                     <td><%= dat.title %></td>
-                    <td><%= dat.category_id.name %></td>
+                    <td><%= dat.category.name %></td>
                     <td><%= dat.spent_on %></td>
                 </tr>
                 <% end %>

@@ -2,7 +2,6 @@ defmodule Ams.Income do
   @moduledoc """
   The Income context.
   """
-
   import Ecto.Query, warn: false
   Ams.Income.Distribution
   alias Ams.Repo
@@ -328,32 +327,48 @@ defmodule Ams.Income do
     where: d.recieved_by == ^id
     )|> Repo.all
   end
-
   #This method is for anlyze receiving
-  def analyze_receiving(id,to \\ "",from \\ "") do
-    IO.inspect("I am in analyze receiving block")
-    IO.inspect(to)
-    IO.inspect(from)
-      IO.inspect("I am in data input block")
-      {:ok,date_to}=Date.from_iso8601(to)
+  def analyze_receiving(id,tos \\ "",froms \\ "") do
+    query = from u in Incoming,
+                 where: u.recieved_by== ^id,
+                       where: ^filter_status(tos,froms),
+                 select: u
+    Repo.all(query) |> Repo.preload([:client,:reciever])
+  end
+  #filter status
 
-      {:ok,date_from}=Date.from_iso8601(from)
-      query = from u in Incoming,
-                   where: u.recieved_by== ^id and (fragment("date(?)", u.inserted_at) >= ^date_to and fragment("?::date", u.inserted_at) <= ^date_from),
-                   select: u
-      Repo.all(query) |> Repo.preload([:client,:reciever])
-
+  def filter_status(tos,froms) do
+    date=""
+    to= case Date.from_iso8601(tos) do
+      {:ok, dates} ->
+        dates
+      {:error, :invalid_format} ->
+        date
+    end
+    from= case Date.from_iso8601(froms) do
+      {:ok, dates} ->
+        dates
+      {:error, :invalid_format} ->
+        date
+    end
+    cond do
+      to != "" and from != "" ->
+        dynamic([u], (fragment("date(?)", u.inserted_at) >= ^to and fragment("?::date", u.inserted_at) <= ^from))
+      to == "" and from == "" ->
+        true
+      to != "" and from == "" ->
+        dynamic([u], fragment("date(?)", u.inserted_at) >= ^to)
+      to == "" and from != "" ->
+        dynamic([u], fragment("?::date", u.inserted_at) <= ^from)
+    end
   end
 
   #This method is for analyze distribution
-  def analyze_distribution(id,to \\ "",from \\ "") do
-    IO.inspect("I am in analyze distribution block")
-
-    {:ok,date_to}=Date.from_iso8601(to)
-    {:ok,date_from}=Date.from_iso8601(from)
+  def analyze_distribution(id,tos \\ "",froms \\ "") do
     query = from u in Distribution,
-                 where: u.from== ^id and (fragment("date(?)", u.inserted_at) >= ^date_to and fragment("?::date", u.inserted_at) <= ^date_from),
+                 where: u.from== ^id,
+                        where: ^filter_status(tos,froms),
                  select: u
-  Repo.all(query) |> Repo.preload([:distributed_to,:distributed_by])
+   Repo.all(query) |> Repo.preload([:distributed_to,:distributed_by])
   end
 end

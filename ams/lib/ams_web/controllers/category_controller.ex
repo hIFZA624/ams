@@ -1,6 +1,5 @@
 defmodule AmsWeb.CategoryController do
   use AmsWeb, :controller
-
   alias Ams.Expense
   alias Ams.Expense.Category
 

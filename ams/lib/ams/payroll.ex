@@ -113,7 +113,7 @@ defmodule Ams.Payroll do
 
   """
   def list_employees do
-    Repo.all(Employee)
+    Repo.all(Employee) |> Repo.preload([:department])
   end
 
   @doc """

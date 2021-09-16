@@ -10,7 +10,6 @@ defmodule Ams.Income.ClientAdmin do
       name: nil
     ]
   end
-
   def custom_pages(schema, conn) do
     [
       %{

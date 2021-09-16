@@ -1,7 +1,6 @@
 defmodule Ams.Income.Client do
   use Ecto.Schema
   import Ecto.Changeset
-
   schema "clients" do
     field :name, :string
     timestamps()

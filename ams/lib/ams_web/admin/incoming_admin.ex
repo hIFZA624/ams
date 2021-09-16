@@ -1,5 +1,6 @@
 defmodule Ams.Income.IncomingAdmin do
   alias Ams.Income
+  alias Ams.Accounts
   alias AmsWeb.Format
   import Ecto.Query
   def widgets(_schema, _conn) do
@@ -39,8 +40,8 @@ defmodule Ams.Income.IncomingAdmin do
       medium: nil,
       recieved_on: nil,
       withdrawl_on: nil,
-      client: %{value: fn p -> p.client.name end },
-      reciever: %{value: fn p -> p.reciever.name end },
+      client_id: %{name: "Client Name",value: fn p -> p.client.name end ,filters: Enum.map(Income.list_clients(),fn c->{c.name,c.id} end)},
+      recieved_by: %{name: "Received By",value: fn p -> p.reciever.name end ,filters: Enum.map(Accounts.list_users(),fn u->{u.name,u.id} end)},
     ]
   end
 end

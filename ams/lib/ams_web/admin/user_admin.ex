@@ -8,7 +8,7 @@ defmodule Ams.Accounts.UserAdmin do
     [
       id: nil,
       email: nil,
-      is_admin: %{filters: [{"is_admin",true},{"not_admin",false}]},
+      is_admin: %{name: "Is Admin",filters: [{"is_admin",true},{"not_admin",false}]},
       email: nil,
       name: nil,
       password: nil
