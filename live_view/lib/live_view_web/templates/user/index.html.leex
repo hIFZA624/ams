@@ -1,0 +1,46 @@
+<h1>Listing Users</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= for user <- @user_list do %>
+    <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td>
+             <a phx-click="view_user" phx-value-id=<%= user.id%>>Show</a>
+             <a phx-click="edit_user"  phx-value-id=<%= user.id%>>Edit</a>
+             <a phx-click="delete_user" phx-value-id=<%= user.id%>>Delete</a>
+        </td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
+<a phx-click="openModel">New User</a>
+<%= if @openModel do %>
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" phx-click="closeModel">&times;</span>
+      <h1 style=" text-transform: capitalize;">  <%= @form %> User </h1>
+        <%= f = form_for @changeset, "#", [phx_change: :validate,phx_submit: @form] %>
+        <%= hidden_input f, :id %>
+        <%= label f, :name %>
+        <%= text_input f, :name %>
+        <%= error_tag f, :name %>
+
+        <%= label f, :email %>
+        <%= text_input f, :email %>
+        <%= error_tag f, :email %>
+        <div>
+            <%= submit @form, phx_disable_with: "Saving..." %>
+        </div>
+        </form>
+    </div>
+</div>
+ <% end %>

@@ -1,0 +1,16 @@
+<button phx-click="new">
+    New
+</button>
+<button phx-click="Edit" >
+    Edit
+</button>
+<button phx-click="exit" >
+    Exit
+</button>
+
+<%= if @abc do %>
+        <%= live_component(LiveViewWeb.FormComponent, id: "new",flag: "false") %>
+ <% end %>
+<%= if @abcEdit do %>
+        <%= live_component(LiveViewWeb.FormComponent, id: "edit") %>
+ <% end %>

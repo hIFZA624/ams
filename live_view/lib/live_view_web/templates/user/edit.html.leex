@@ -1,0 +1,4 @@
+<h1>Edit User</h1>
+
+<%= render "form.html",assigns %>
+<span><%= live_redirect "Back", to: Routes.user_path(@socket, :index) %></span>
